@@ -5,46 +5,19 @@ import {
   IonTitle,
   IonContent,
   IonButtons,
-  IonRow,
-  IonCol,
   IonButton,
-  IonList,
   IonItem,
   IonLabel,
   IonText,
-  IonTextarea,
-  IonToast,
   IonModal,
   IonToggle,
 } from "@ionic/react";
-import "./Login.scss";
-import { connect } from "../data/connect";
 import { useHistory } from "react-router";
 
-interface OwnProps {}
+import "./ViewMessage.css";
 
-interface DispatchProps {}
-
-interface SupportProps extends OwnProps, DispatchProps {}
-
-const SupportModal: React.FC<SupportProps> = () => {
-  const [message, setMessage] = useState("");
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [messageError, setMessageError] = useState(false);
-  const [showToast, setShowToast] = useState(false);
+function ViewMessage() {
   const [enableDismissHack, setEnableDismissHack] = useState(false);
-
-  const send = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    if (!message) {
-      setMessageError(true);
-    }
-    if (message) {
-      setMessage("");
-      setShowToast(true);
-    }
-  };
 
   const modalRef = useRef<HTMLIonModalElement>(null);
 
@@ -60,18 +33,23 @@ const SupportModal: React.FC<SupportProps> = () => {
   }, [enableDismissHack]);
 
   const history = useHistory();
-  const replace = () => history.replace("/support");
+  const replace = () => history.replace("/message");
   const goBack = () => history.goBack();
-  const push = () => history.push("/support");
+  const push = () => history.push("/message");
 
   return (
-    <IonModal isOpen backdropDismiss={false} ref={modalRef} id="support-page">
+    <IonModal
+      isOpen
+      backdropDismiss={false}
+      ref={modalRef}
+      id="view-message-page"
+    >
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
             <IonButton onClick={goBack}>Cancel</IonButton>
           </IonButtons>
-          <IonTitle>Support Modal</IonTitle>
+          <IonTitle>View Message</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -129,9 +107,7 @@ const SupportModal: React.FC<SupportProps> = () => {
             </tr>
             <tr>
               <td>
-                <IonButton onClick={goBack}>
-                  history.goBack (?)
-                </IonButton>
+                <IonButton onClick={goBack}>history.goBack (?)</IonButton>
                 <br />
                 <IonText color="danger">
                   unmount callback is never called, no animation
@@ -155,53 +131,9 @@ const SupportModal: React.FC<SupportProps> = () => {
             </tr>
           </tbody>
         </table>
-
-        <IonText>All of these solutions don't have animations though.</IonText>
-
-        <form noValidate onSubmit={send}>
-          <IonList>
-            <IonItem>
-              <IonLabel position="stacked" color="primary">
-                Enter your support message below
-              </IonLabel>
-              <IonTextarea
-                name="message"
-                value={message}
-                spellCheck={false}
-                autocapitalize="off"
-                rows={6}
-                onIonChange={(e) => setMessage(e.detail.value!)}
-                required
-              ></IonTextarea>
-            </IonItem>
-
-            {formSubmitted && messageError && (
-              <IonText color="danger">
-                <p className="ion-padding-start">Support message is required</p>
-              </IonText>
-            )}
-          </IonList>
-
-          <IonRow>
-            <IonCol>
-              <IonButton type="submit" expand="block">
-                Submit
-              </IonButton>
-            </IonCol>
-          </IonRow>
-        </form>
       </IonContent>
-
-      <IonToast
-        isOpen={showToast}
-        duration={3000}
-        message="Your support request has been sent"
-        onDidDismiss={() => setShowToast(false)}
-      />
     </IonModal>
   );
-};
+}
 
-export default connect<OwnProps, {}, DispatchProps>({
-  component: SupportModal,
-});
+export default ViewMessage;
