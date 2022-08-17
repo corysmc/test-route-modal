@@ -33,9 +33,9 @@ function ViewMessage() {
   }, [enableDismissHack]);
 
   const history = useHistory();
-  const replace = () => history.replace("/message");
+  const replace = () => history.replace("/home");
   const goBack = () => history.goBack();
-  const push = () => history.push("/message");
+  const push = () => history.push("/home");
 
   return (
     <IonModal
@@ -97,7 +97,7 @@ function ViewMessage() {
             </tr>
             <tr>
               <td>
-                <IonButton href="/support">href (?)</IonButton>
+                <IonButton href="/home">href (?)</IonButton>
                 <br />
                 <IonText color="danger">
                   unmount callback is never called, no animation
@@ -108,10 +108,6 @@ function ViewMessage() {
             <tr>
               <td>
                 <IonButton onClick={goBack}>history.goBack (?)</IonButton>
-                <br />
-                <IonText color="danger">
-                  unmount callback is never called, no animation
-                </IonText>
               </td>
               <td></td>
             </tr>
