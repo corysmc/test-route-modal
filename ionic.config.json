@@ -1,0 +1,7 @@
+{
+  "name": "test-route-modal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
